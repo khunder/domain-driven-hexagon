@@ -1,6 +1,6 @@
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Injectable, Logger } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import {
   UserEntity,
   UserProps,
@@ -12,13 +12,14 @@ import {
 } from '@libs/ddd/infrastructure/database/base-classes/typeorm.repository.base';
 import { QueryParams } from '@libs/ddd/domain/ports/repository.ports';
 import { removeUndefinedProps } from '@src/libs/utils/remove-undefined-props.util';
+import {Logger} from "@libs/ddd/infrastructure/logger/logger";
 import { UserOrmEntity } from './user.orm-entity';
 import { UserRepositoryPort } from './user.repository.port';
 import { UserOrmMapper } from './user.orm-mapper';
 import { FindUsersQuery } from '../queries/find-users/find-users.query';
 
 @Injectable()
-export class UserRepository
+export class UserOrmRepository
   extends TypeormRepositoryBase<UserEntity, UserProps, UserOrmEntity>
   implements UserRepositoryPort {
   protected relations: string[] = [];

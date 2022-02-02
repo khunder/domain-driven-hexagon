@@ -1,8 +1,8 @@
 import { TypeormUnitOfWork } from '@src/libs/ddd/infrastructure/database/base-classes/typeorm-unit-of-work';
 import { UserOrmEntity } from '@modules/user/database/user.orm-entity';
-import { UserRepository } from '@modules/user/database/user.repository';
+import { UserOrmRepository } from '@modules/user/database/user.orm.repository';
 import { WalletOrmEntity } from '@modules/wallet/database/wallet.orm-entity';
-import { WalletRepository } from '@modules/wallet/database/wallet.repository';
+import { WalletOrmRepository } from '@modules/wallet/database/wallet.orm.repository';
 import { Injectable } from '@nestjs/common';
 import {UserRepositoryPort} from "@modules/user/database/user.repository.port";
 import {WalletRepositoryPort} from "@modules/wallet/database/wallet.repository.port";
@@ -14,13 +14,13 @@ export class UnitOfWork extends TypeormUnitOfWork implements UnitOfWorkPort{
 
   // Convert TypeOrm Repository to a Domain Repository
   getUserRepository(correlationId: string): UserRepositoryPort {
-    return new UserRepository(
+    return new UserOrmRepository(
       this.getOrmRepository(UserOrmEntity, correlationId),
     ).setCorrelationId(correlationId);
   }
 
   getWalletRepository(correlationId: string): WalletRepositoryPort {
-    return new WalletRepository(
+    return new WalletOrmRepository(
       this.getOrmRepository(WalletOrmEntity, correlationId),
     ).setCorrelationId(correlationId);
   }

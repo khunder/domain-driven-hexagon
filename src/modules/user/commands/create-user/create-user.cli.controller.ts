@@ -1,7 +1,7 @@
 import { createUserCliLoggerSymbol } from '@modules/user/user.providers';
 import { Inject } from '@nestjs/common';
 import { Command, Console } from 'nestjs-console';
-import { Logger } from '@libs/ddd/domain/ports/logger.port';
+import { LoggerPort } from '@libs/ddd/domain/ports/logger.port';
 import { CommandBus } from '@nestjs/cqrs';
 import { CreateUserCommand } from './create-user.command';
 
@@ -14,7 +14,7 @@ export class CreateUserCliController {
   constructor(
     private readonly commandBus: CommandBus,
     @Inject(createUserCliLoggerSymbol)
-    private readonly logger: Logger,
+    private readonly logger: LoggerPort,
   ) {}
 
   @Command({

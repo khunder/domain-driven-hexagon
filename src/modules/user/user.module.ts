@@ -2,7 +2,7 @@ import {ClassProvider, Module} from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { CqrsModule } from '@nestjs/cqrs';
 import { UserOrmEntity } from './database/user.orm-entity';
-import { UserRepository } from './database/user.repository';
+import { UserOrmRepository } from './database/user.repository';
 import { CreateUserHttpController } from './commands/create-user/create-user.http.controller';
 import { DeleteUserHttpController } from './commands/delete-user/delete-user.http-controller';
 import { createUserCliLoggerProvider } from './user.providers';
@@ -29,7 +29,7 @@ const graphqlResolvers = [CreateUserGraphqlResolver, FindUsersGraphqlResolver];
 
 const userRepositoryProvider : ClassProvider = {
   provide: "userRepositoryPort",
-  useClass: UserRepository
+  useClass: UserOrmRepository
 };
 
 const repositories = [userRepositoryProvider];

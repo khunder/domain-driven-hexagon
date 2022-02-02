@@ -1,5 +1,5 @@
 import { AggregateRoot } from '../base-classes/aggregate-root.base';
-import { Logger } from '../ports/logger.port';
+import { LoggerPort } from '../ports/logger.port';
 import { DomainEvent, DomainEventHandler } from '.';
 import { final } from '../../../decorators/final.decorator';
 import { ID } from '../value-objects/id.value-object';
@@ -34,7 +34,7 @@ export class DomainEvents {
 
   public static async publishEvents(
     id: ID,
-    logger: Logger,
+    logger: LoggerPort,
     correlationId?: string,
   ): Promise<void> {
     const aggregate = this.findAggregateByID(id);
@@ -76,7 +76,7 @@ export class DomainEvents {
 
   private static async publish(
     event: DomainEvent,
-    logger: Logger,
+    logger: LoggerPort,
   ): Promise<void> {
     const eventName: string = event.constructor.name;
 

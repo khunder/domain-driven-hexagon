@@ -1,15 +1,15 @@
 import { FindConditions, ObjectLiteral, Repository } from 'typeorm';
 import { ID } from '@libs/ddd/domain/value-objects/id.value-object';
 import { DomainEvents } from '@libs/ddd/domain/domain-events';
-import { Logger } from '@libs/ddd/domain/ports/logger.port';
+import { LoggerPort } from '@libs/ddd/domain/ports/logger.port';
 import { AggregateRoot } from '@libs/ddd/domain/base-classes/aggregate-root.base';
+import { NotFoundException } from '@exceptions';
 import {
   QueryParams,
   FindManyPaginatedParams,
   RepositoryPort,
   DataWithPaginationMeta,
 } from '../../../domain/ports/repository.ports';
-import { NotFoundException } from '../../../../exceptions';
 import { OrmMapper } from './orm-mapper.base';
 
 export type WhereCondition<OrmEntity> =
@@ -26,7 +26,7 @@ export abstract class TypeormRepositoryBase<
   protected constructor(
     protected readonly repository: Repository<OrmEntity>,
     protected readonly mapper: OrmMapper<Entity, OrmEntity>,
-    protected readonly logger: Logger,
+    protected readonly logger: LoggerPort,
   ) {}
 
   /**

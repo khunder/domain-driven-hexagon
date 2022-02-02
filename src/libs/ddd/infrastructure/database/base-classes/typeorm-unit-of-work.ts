@@ -1,7 +1,7 @@
 import {UnitOfWorkExecution, UnitOfWorkPort} from '@src/libs/ddd/domain/ports/unit-of-work.port';
 import { EntityTarget, getConnection, QueryRunner, Repository } from 'typeorm';
 import { IsolationLevel } from 'typeorm/driver/types/IsolationLevel';
-import { Logger } from 'src/libs/ddd/domain/ports/logger.port';
+import { LoggerPort } from 'src/libs/ddd/domain/ports/logger.port';
 import { Result } from '@src/libs/ddd/domain/utils/result.util';
 
 /**
@@ -17,7 +17,7 @@ import { Result } from '@src/libs/ddd/domain/utils/result.util';
  * https://mikro-orm.io/docs/unit-of-work/.
  */
 export class TypeormUnitOfWork implements UnitOfWorkExecution {
-  constructor(private readonly logger: Logger) {}
+  constructor(private readonly logger: LoggerPort) {}
 
   private queryRunners: Map<string, QueryRunner> = new Map();
 
